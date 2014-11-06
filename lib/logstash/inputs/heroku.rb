@@ -9,7 +9,7 @@ require "logstash/namespace"
 # fetches logs.
 #
 # Recommended filters:
-#
+# [source,ruby]
 #     filter {
 #       grok {
 #         pattern => "^%{TIMESTAMP_ISO8601:timestamp} %{WORD:component}\[%{WORD:process}(?:\.%{INT:instance:int})?\]: %{DATA:message}$"
@@ -23,7 +23,7 @@ class LogStash::Inputs::Heroku < LogStash::Inputs::Base
   default :codec, "plain"
 
   # The name of your heroku application. This is usually the first part of the 
-  # the domain name 'my-app-name.herokuapp.com'
+  # the domain name `my-app-name.herokuapp.com`
   config :app, :validate => :string, :required => true
 
   public
