@@ -18,7 +18,6 @@ require "logstash/namespace"
 #     }
 class LogStash::Inputs::Heroku < LogStash::Inputs::Base
   config_name "heroku"
-  milestone 1
 
   default :codec, "plain"
 
