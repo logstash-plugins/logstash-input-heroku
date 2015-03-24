@@ -24,6 +24,8 @@ class LogStash::Inputs::Heroku < LogStash::Inputs::Base
   # The name of your heroku application. This is usually the first part of the 
   # the domain name `my-app-name.herokuapp.com`
   config :app, :validate => :string, :required => true
+  config :ps, :validate => :string, :required => false
+  config :source, :validate => :string, :required => false
 
   public
   def register
@@ -40,10 +42,25 @@ class LogStash::Inputs::Heroku < LogStash::Inputs::Base
     # tail=1 means to follow logs
     # I *think* setting num=1 means we only get 1 historical event. Setting
     # this to 0 makes it fetch *all* events, not what I want.
-    client.read_logs(@app, ["tail=1", "num=1"]) do |chunk|
+    read_logs_options = ["tail=1", "num=1"]
+    if defined?(@ps)
+      read_logs_options.push("ps=#{@ps}")
+    end
+
+    if defined?(@source) 
+      read_logs_options.push("source=#{@source}")
+    end
+
+    client.read_logs(@app, read_logs_options) do |chunk|
       @codec.decode(chunk) do |event|
         decorate(event)
         event["app"] = @app
+        if defined?(@ps) 
+          event["heroku_ps"] = @ps
+        end
+        if defined?(@source)  
+          event["heroku_source"] =  @source
+        end
         queue << event
       end
     end
