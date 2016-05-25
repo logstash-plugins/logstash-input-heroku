@@ -27,7 +27,7 @@ class LogStash::Inputs::Heroku < LogStash::Inputs::Base
 
   public
   def register
-    require "heroku/client"
+    require "heroku"
     require "logstash/util/buftok"
   end # def register
 
