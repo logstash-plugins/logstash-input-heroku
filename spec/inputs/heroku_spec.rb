@@ -4,8 +4,10 @@ describe LogStash::Inputs::Heroku do
 
   before :each do
     @client = Heroku::Client.new("test", "pw")
-    @input = LogStash::Plugin.lookup("input","heroku").new("app" => "test")
     allow(Heroku::Client).to receive(:new).and_return(@client)
+    allow(Heroku::Auth).to receive(:user).and_return("test")
+    allow(Heroku::Auth).to receive(:pw).and_return("pw")
+    @input = LogStash::Plugin.lookup("input","heroku").new("app" => "test")
   end
 
   it "should register" do
