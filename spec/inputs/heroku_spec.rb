@@ -22,6 +22,7 @@ describe LogStash::Inputs::Heroku do
 
     it "should read logs" do 
       allow(@client).to receive(:read_logs).and_yield("LOG LOG LOG LOG")
+      allow(LogStash::Event).to receive(:validate_value).and_return(true)
       @input.run(@queue)
       expect(@queue.length).to eq 1
       expect(@queue.first.to_hash["message"]).to eq "LOG LOG LOG LOG"
