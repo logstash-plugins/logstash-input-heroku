@@ -6,7 +6,7 @@ describe LogStash::Inputs::Heroku do
     @client = Heroku::Client.new("test", "pw")
     allow(Heroku::Client).to receive(:new).and_return(@client)
     allow(Heroku::Auth).to receive(:user).and_return("test")
-    allow(Heroku::Auth).to receive(:pw).and_return("pw")
+    allow(Heroku::Auth).to receive(:password).and_return("pw")
     @input = LogStash::Plugin.lookup("input","heroku").new("app" => "test")
   end
 
