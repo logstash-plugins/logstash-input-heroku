@@ -43,7 +43,7 @@ class LogStash::Inputs::Heroku < LogStash::Inputs::Base
     client.read_logs(@app, ["tail=1", "num=1"]) do |chunk|
       @codec.decode(chunk) do |event|
         decorate(event)
-        event["app"] = @app
+        event.set("app", @app)
         queue << event
       end
     end
