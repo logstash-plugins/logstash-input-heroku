@@ -1,6 +1,6 @@
 # Logstash Plugin
 
-[![Travis Build Status](https://travis-ci.org/logstash-plugins/logstash-input-heroku.svg)](https://travis-ci.org/logstash-plugins/logstash-input-heroku)
+[![Travis Build Status](https://travis-ci.com/logstash-plugins/logstash-input-heroku.svg)](https://travis-ci.com/logstash-plugins/logstash-input-heroku)
 
 This is a plugin for [Logstash](https://github.com/elastic/logstash).
 
